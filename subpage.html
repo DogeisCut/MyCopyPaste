@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyCopyPaste - Subpage</title>
+</head>
+<body>
+    <h1>Decoded Text</h1>
+    <p id="decodedText"></p>
+
+    <script>
+        function getParameterByName(name) {
+            const url = new URL(window.location.href);
+            return url.searchParams.get(name);
+        }
+
+        const encodedData = getParameterByName('data');
+        if (encodedData) {
+            const decodedText = atob(encodedData); // Decode base64
+            document.getElementById('decodedText').textContent = decodedText;
+
+            // Automatically copy to clipboard
+            const textArea = document.createElement('textarea');
+            textArea.value = decodedText;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+        }
+    </script>
+</body>
+</html>
